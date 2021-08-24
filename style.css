@@ -66,6 +66,7 @@ body {
 	padding: 5px;
 	margin: 0 0 10px 0;
 }
-.form {
-	width: 30%;
+.wrapper{
+	width: 360px;
+	padding: 20px;
 }
