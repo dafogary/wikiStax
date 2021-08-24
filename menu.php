@@ -10,7 +10,7 @@
         <div>
             <h1><a href="welcome.php">MediaWiki Management Interface</a></h1>
             <a href="reset-password.php"><i class="fas fa-users"></i>Create User Account</a>
-            <a href="profile.php"><i class="fas fa-user-circle"></i>Profile</a>
+            <a href="profile.php"><i class="fas fa-user-circle"></i><?php echo htmlspecialchars($_SESSION["username"]); ?></a>
             <a href="logout.php"><i class="fas fa-sign-out-alt"></i>Logout</a>
         </div>
     </nav>
