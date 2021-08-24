@@ -1,10 +1,10 @@
 <?php
 // Initialize the session
-session_start()
+session_start();
 
 // Check if the user is logged in, if not then redirect to login page
-if(!isset($_SESSION["loggedin"] || $_SESSION["loggedin"] !== true){
-    header("locationL: login.php");
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: login.php");
     exit;
 }
 ?>
@@ -15,7 +15,7 @@ if(!isset($_SESSION["loggedin"] || $_SESSION["loggedin"] !== true){
 	<title>Profile Page - MWAdmin</title>
 </head>
 <body>
-	<?php include_once("menu.php");?>
+	<?php include_once("menu.php"); ?>
 	<h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>.</h1>
 	<div>
 		<p>Your Account details are below:</p>
