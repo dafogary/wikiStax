@@ -17,7 +17,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 <body>
 	<?php include_once("menu.php"); ?>
 	<h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>.</h1>
-	<div>
+	<div class="content">
 		<p>Your Account details are below:</p>
 		<table>
 			<tr>
@@ -26,7 +26,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 			</tr>
 			<tr>
 				<td>Password:</td>
-				<td><?=$_SESSION["password"]?></td>
+				<td><a href="reset-password.php" class="btn btn-primary">Change password</a></td>
 			</tr>
 			<tr>
 				<td>Email:</td>
