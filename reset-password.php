@@ -72,6 +72,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 <!DOCTYPE html>
 <?php include_once("menu.php"); ?>
+<head>
+	<title>Change Password - MWAdmin</title>
+</head>
 <body>
     <div class="content">
         <h2>Change Password</h2>

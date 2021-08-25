@@ -10,12 +10,12 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 ?>
 
 <!DOCTYPE html>
+<?php include_once("menu.php"); ?>
 <html lang="en">
 <head>
 	<title>Profile Page - MWAdmin</title>
 </head>
 <body>
-	<?php include_once("menu.php"); ?>
 	<h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>.</h1>
 	<div class="content">
 		<p>Your Account details are below:</p>
