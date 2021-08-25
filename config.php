@@ -1,4 +1,7 @@
 <?php
+// Set farm location e.g. /var/www/html/farm
+$farm = "/var/www/html/farm";
+
 /* Database credentials. Assuming you are running MySQL
 server with default setting (user 'root' with no password) */
 define('DB_SERVER', 'localhost');
