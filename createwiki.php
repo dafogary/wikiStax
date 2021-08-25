@@ -62,41 +62,41 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	if(empty($wiki_dir_err) && empty($url_raw_err) && empty($subfolder_err) && empty($db_name_err) && empty($wiki_name_err) && empty($wiki_ns_err)){
 		// Performing tasks to create wiki
 		echo shell_exec("mkdir {$wiki_dir}/");
-		echo shell_exec("ln -s "$farm"/api.php "$wiki_dir"/api.php");
-		echo shell_exec("ln -s "$farm"/autoload.php "$wiki_dir"/autoload.php");
-		echo shell_exec("ln -s "$farm"/CODE_OF_CONDUCT.md "$wiki_dir"/CODE_OF_CONDUCT.md");
-		echo shell_exec("ln -s "$farm"/composer.json "$wiki_dir"/composer.json");
-		echo shell_exec("ln -s "$farm"/composer.lock "$wiki_dir"/composer.lock");
-		echo shell_exec("ln -s "$farm"/COPYING "$wiki_dir"/COPYING");
-		echo shell_exec("ln -s "$farm"/CREDITS "$wiki_dir"/CREDITS");
-		echo shell_exec("ln -s "$farm"/docs/ "$wiki_dir"/docs");
-		echo shell_exec("ln -s "$farm"/extensions/ "$wiki_dir"/extensions");
-		echo shell_exec("ln -s "$farm"/FAQ "$wiki_dir"/FAQ");
-		echo shell_exec("ln -s "$farm"/HISTORY "$wiki_dir"/HISTORY");
-		echo shell_exec("ln -s "$farm"/img_auth.php "$wiki_dir"/img_auth.php");
-		echo shell_exec("ln -s "$farm"/includes/ "$wiki_dir"/includes");
-		echo shell_exec("ln -s "$farm"/index.php "$wiki_dir"/index.php");
-		echo shell_exec("ln -s "$farm"/INSTALL "$wiki_dir"/INSTALL");
-		echo shell_exec("ln -s "$farm"/jsduck.json "$wiki_dir"/jsduck.json");
-		echo shell_exec("ln -s "$farm"/languages/ "$wiki_dir"/languages");
-		echo shell_exec("ln -s "$farm"/load.php "$wiki_dir"/load.php");
-		echo shell_exec("ln -s "$farm"/LocalSettings.php "$wiki_dir"/LocalSettings.php");
-		echo shell_exec("ln -s "$farm"/maintenance/ "$wiki_dir"/maintenance");
-		echo shell_exec("ln -s "$farm"/mw-config/ "$wiki_dir"/mw-config");
-		echo shell_exec("ln -s "$farm"/opensearch_desc.php "$wiki_dir"/opensearch_desc.php");
-		echo shell_exec("ln -s "$farm"/README.md "$wiki_dir"/README.md");
-		echo shell_exec("ln -s "$farm"/RELEASE-NOTES-1.35 "$wiki_dir"/RELEASE-NOTES-1.35");
-		echo shell_exec("ln -s "$farm"/resources/ "$wiki_dir"/resources");
-		echo shell_exec("ln -s "$farm"/rest.php "$wiki_dir"/rest.php");
-		echo shell_exec("ln -s "$farm"/SECURITY "$wiki_dir"/SECURITY");
-		echo shell_exec("ln -s "$farm"/skins/ "$wiki_dir"/skins");
-		echo shell_exec("ln -s "$farm"/tests/ "$wiki_dir"/tests");
-		echo shell_exec("ln -s "$farm"/thumb_handler.php "$wiki_dir"/thumb_handler.php");
-		echo shell_exec("ln -s "$farm"/thumb.php "$wiki_dir"/thumb.php");
-		echo shell_exec("ln -s "$farm"/UPGRADE "$wiki_dir"/UPGRADE");
-		echo shell_exec("ln -s "$farm"/vendor/ "$wiki_dir"/vendor");
-		echo shell_exec("mkdir "$wiki_dir"/cache");
-		//echo shell_exec("cp images/ "$wiki_dir" -r
+		echo shell_exec("ln -s {$farm}/api.php {$wiki_dir}/api.php");
+		echo shell_exec("ln -s {$farm}/autoload.php {$wiki_dir}/autoload.php");
+		echo shell_exec("ln -s {$farm}/CODE_OF_CONDUCT.md {$wiki_dir}/CODE_OF_CONDUCT.md");
+		echo shell_exec("ln -s {$farm}/composer.json {$wiki_dir}/composer.json");
+		echo shell_exec("ln -s {$farm}/composer.lock {$wiki_dir}/composer.lock");
+		echo shell_exec("ln -s {$farm}/COPYING {$wiki_dir}/COPYING");
+		echo shell_exec("ln -s {$farm}/CREDITS {$wiki_dir}/CREDITS");
+		echo shell_exec("ln -s {$farm}/docs/ {$wiki_dir}/docs");
+		echo shell_exec("ln -s {$farm}/extensions/ {$wiki_dir}/extensions");
+		echo shell_exec("ln -s {$farm}/FAQ {$wiki_dir}/FAQ");
+		echo shell_exec("ln -s {$farm}/HISTORY {$wiki_dir}/HISTORY");
+		echo shell_exec("ln -s {$farm}/img_auth.php {$wiki_dir}/img_auth.php");
+		echo shell_exec("ln -s {$farm}/includes/ {$wiki_dir}/includes");
+		echo shell_exec("ln -s {$farm}/index.php {$wiki_dir}/index.php");
+		echo shell_exec("ln -s {$farm}/INSTALL {$wiki_dir}/INSTALL");
+		echo shell_exec("ln -s {$farm}/jsduck.json {$wiki_dir}/jsduck.json");
+		echo shell_exec("ln -s {$farm}/languages/ {$wiki_dir}/languages");
+		echo shell_exec("ln -s {$farm}/load.php {$wiki_dir}/load.php");
+		echo shell_exec("ln -s {$farm}/LocalSettings.php {$wiki_dir}/LocalSettings.php");
+		echo shell_exec("ln -s {$farm}/maintenance/ {$wiki_dir}/maintenance");
+		echo shell_exec("ln -s {$farm}/mw-config/ {$wiki_dir}/mw-config");
+		echo shell_exec("ln -s {$farm}/opensearch_desc.php {$wiki_dir}/opensearch_desc.php");
+		echo shell_exec("ln -s {$farm}/README.md {$wiki_dir}/README.md");
+		echo shell_exec("ln -s {$farm}/RELEASE-NOTES-1.35 {$wiki_dir}/RELEASE-NOTES-1.35");
+		echo shell_exec("ln -s {$farm}/resources/ {$wiki_dir}/resources");
+		echo shell_exec("ln -s {$farm}/rest.php {$wiki_dir}/rest.php");
+		echo shell_exec("ln -s {$farm}/SECURITY {$wiki_dir}/SECURITY");
+		echo shell_exec("ln -s {$farm}/skins/ {$wiki_dir}/skins");
+		echo shell_exec("ln -s {$farm}/tests/ {$wiki_dir}/tests");
+		echo shell_exec("ln -s {$farm}/thumb_handler.php {$wiki_dir}/thumb_handler.php");
+		echo shell_exec("ln -s {$farm}/thumb.php {$wiki_dir}/thumb.php");
+		echo shell_exec("ln -s {$farm}/UPGRADE {$wiki_dir}/UPGRADE");
+		echo shell_exec("ln -s {$farm}/vendor/ {$wiki_dir}/vendor");
+		echo shell_exec("mkdir {$wiki_dir}/cache");
+		//echo shell_exec("cp images/ {$wiki_dir} -r
 		
 		// Enter code to edit the LocalSettings.php
 	}
