@@ -31,6 +31,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 		$url_raw_err = "Please enter the URL domain.";
 	} elseif(!filter_var(trim($_POST["url_raw"]), FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED)) {
 		$url_raw_err = "Please enter a valid URL.";
+	} elseif(strpos(trim($_POST["url_raw"]), "http://") === 0 {
+		$url_raw_err = "http";
+	} elseif(strpos(trim($_POST["url_raw"]), "https://") === 0 {
+		$url_raw_err = "https";
 	} else{
 		// Set parameters
 		$url_raw = trim($_POST["url_raw"]);
@@ -66,6 +70,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	if(empty($wiki_dir_err) && empty($url_raw_err) && empty($subfolder_err) && empty($db_name_err) && empty($wiki_name_err) && empty($wiki_ns_err)){
 		// Create required variables
 		$wiki_local = "{$wiki_dir}/LocalSettings_{$db_name}.php";
+		$semantic = str_replace("http://", "", $url_raw); // Remove "http://" if applicable
+		$semantic = str_replace("https://", "", $semantic); // Remove "https://" if applicable
+		$semantic = $semantic . $subfolder; // Add the subfolder to the semantic url
 		
 		// Performing tasks to create wiki
 		echo shell_exec("mkdir {$wiki_dir}/"); // Making the new directory
@@ -104,10 +111,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 		echo shell_exec("ln -s {$farm}/vendor/ {$wiki_dir}/vendor");
 		echo shell_exec("mkdir {$wiki_dir}/cache");
 		echo shell_exec("mkdir {$wiki_dir}/images");
+		
 		//Performing tasks to create the localsettings.php file for the wiki
 		echo shell_exec("cp config/LocalSettings.php {$wiki_local}");
+		$local = file_get_contents($wiki_local);
+		$local = str_replace("wikidbname", $db_name, $local);
+		$local = str_replace("subfolder", $subfolder, $local);
+		$local = str_replace("wikiurl", $url_raw, $local);
+		$local = str_replace("wikins", $wiki_ns, $local);
+		$local = str_replace("wiki_name", $wiki_name, $local);
+		$local = str_replace("semantichost", $semantic, $local);
+		$local = str_replace("image_dir", $wiki_dir, $local);
+		file_put_contents($wiki_local, $local);
 		
-		// Enter code to edit the LocalSettings.php
+		// Enter code to add wiki to the global LocalSettings.php file
 	}
 }
 ?>
