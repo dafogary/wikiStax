@@ -31,7 +31,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 		$url_raw_err = "Please enter the URL domain.";
 	} elseif(!filter_var(trim($_POST["url_raw"]), FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED)) {
 		$url_raw_err = "Please enter a valid URL.";
-	} elseif(!strpos(trim($_POST["url_raw"]), "http://") === 0 && !strpos(trim($_POST["url_raw"]), "https://") === 0 ){
+	} elseif(!(strpos(trim($_POST["url_raw"]), "http://") === 0 || strpos(trim($_POST["url_raw"]), "https://") === 0 ) ){
 		$url_raw_err = "Please enter a url with either http:// or https://";
 	} else{
 		// Set parameters
@@ -123,6 +123,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 		file_put_contents($wiki_local, $local);
 		
 		// Enter code to add wiki to the global LocalSettings.php file
+		
+		// Upload database for the new wiki
+		
+		// Perform post install scripts
 	}
 }
 ?>
