@@ -29,19 +29,23 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	// Validate URL domain
 	if(empty(trim($_POST["url_raw"]))){
 		$url_raw_err = "Please enter the URL domain.";
+	} elseif(!filter_var(trim($_POST["url_raw"]), FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED)) {
+		$url_raw_err = "Please enter a valid URL.";
 	} else{
 		// Set parameters
 		$url_raw = trim($_POST["url_raw"]);
 	}
 	
 	// Validate Subfolder
-	$subfolder = trim($_POST["subfolder"]);
+	$subfolder = trim($_POST["subfolder"]); // No validation is required as it can be blank
 	
 	// Validate Database name
 	if(empty(trim($_POST["db_name"]))){
 		$db_name_err = "Please enter a Database Name.";
+	} elseif(strpos(trim($_POST["db_name"]),' ') !== false) {
+		$db_name_err = "Database name cannot contain spaces.";
 	} else{
-		$db_name = trim($_POST["db_name"]);
+		$db_name = strtolower(trim($_POST["db_name"]));
 	}
 	
 	// Validate Wiki Name
@@ -60,8 +64,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	
 	// Check input errors before performing tasks
 	if(empty($wiki_dir_err) && empty($url_raw_err) && empty($subfolder_err) && empty($db_name_err) && empty($wiki_name_err) && empty($wiki_ns_err)){
+		// Create required variables
+		$wiki_local = "{$wiki_dir}/LocalSettings{$db_name}.php";
+		
 		// Performing tasks to create wiki
-		echo shell_exec("mkdir {$wiki_dir}/");
+		echo shell_exec("mkdir {$wiki_dir}/"); // Making the new directory
 		echo shell_exec("ln -s {$farm}/api.php {$wiki_dir}/api.php");
 		echo shell_exec("ln -s {$farm}/autoload.php {$wiki_dir}/autoload.php");
 		echo shell_exec("ln -s {$farm}/CODE_OF_CONDUCT.md {$wiki_dir}/CODE_OF_CONDUCT.md");
@@ -96,7 +103,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 		echo shell_exec("ln -s {$farm}/UPGRADE {$wiki_dir}/UPGRADE");
 		echo shell_exec("ln -s {$farm}/vendor/ {$wiki_dir}/vendor");
 		echo shell_exec("mkdir {$wiki_dir}/cache");
-		//echo shell_exec("cp images/ {$wiki_dir} -r
+		echo shell_exec("mkdir {$wiki_dir}/images");
+		//Performing tasks to create the localsettings.php file for the wiki
+		echo shell_exec("cp config/LocalSettings.php {$wiki_local}");
 		
 		// Enter code to edit the LocalSettings.php
 	}
