@@ -65,7 +65,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	// Check input errors before performing tasks
 	if(empty($wiki_dir_err) && empty($url_raw_err) && empty($subfolder_err) && empty($db_name_err) && empty($wiki_name_err) && empty($wiki_ns_err)){
 		// Create required variables
-		$wiki_local = "{$wiki_dir}/LocalSettings{$db_name}.php";
+		$wiki_local = "{$wiki_dir}/LocalSettings_{$db_name}.php";
 		
 		// Performing tasks to create wiki
 		echo shell_exec("mkdir {$wiki_dir}/"); // Making the new directory
