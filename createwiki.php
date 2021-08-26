@@ -117,7 +117,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 		$local = str_replace("subfolder", $subfolder, $local);
 		$local = str_replace("wikiurl", $url_raw, $local);
 		$local = str_replace("wikins", $wiki_ns, $local);
-		$local = str_replace("wiki_name", $wiki_name, $local);
+		$local = str_replace("wikiname", $wiki_name, $local);
 		$local = str_replace("semantichost", $semantic, $local);
 		$local = str_replace("image_dir", $wiki_dir, $local);
 		file_put_contents($wiki_local, $local);
@@ -127,6 +127,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 		// Upload database for the new wiki
 		
 		// Perform post install scripts
+		header("locationL welcome.php"); // Redirect back to welcome page once wiki creation is complete.
 	}
 }
 ?>

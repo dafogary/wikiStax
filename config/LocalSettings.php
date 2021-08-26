@@ -17,7 +17,7 @@ $wgMetaNamespace = "wikins";
 $wgScriptPath = "subfolder";
 
 ## The protocol and server name to use in fully-qualified URLs
-$wgServer = "https://wikiurl";
+$wgServer = "wikiurl";
 
 ## The URL path to static resources (images, scripts, etc.)
 $wgResourceBasePath = $wgScriptPath;
