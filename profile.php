@@ -27,24 +27,31 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 		$email = trim($_POST["email"]);
 	}
 	
-	// Preprare and insert statement
-	$sql = "INSERT INTO users (email) VALUES (?)";
-	
-	if($stmt = mysqli_prepare($link, $sql)){
-            // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $email);
+	// Check input errors before updating the database
+	if(empty($email_err)){
+		// Preprare and insert statement
+		$sql = "UPDATE users SET email = ? WHERE id = ?";
+		
+		if($stmt = mysqli_prepare($link, $sql)){
+			// Bind variables to the prepared statement as parameters
+			mysqli_stmt_bind_param($stmt, "si", $email, $param_id);
+			
+			// Set paramters
+			$param_id = $_SESSION["id"];
+			
+			// Attempt to execute the prepared statement
+			if(mysqli_stmt_execute($stmt)){
+				// Redirect to welcome page
+				header("location: welcome.php");
+			} else{
+				echo "Oops! Something went wrong. Please try again later.";
+			}
 
-            // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){
-                // Redirect to welcome page
-                header("location: welcome.php");
-            } else{
-                echo "Oops! Something went wrong. Please try again later.";
-            }
-
-            // Close statement
-            mysqli_stmt_close($stmt);
-        }
+			// Close statement
+			mysqli_stmt_close($stmt);
+		}
+	}
+}
 ?>
 
 <!DOCTYPE html>
