@@ -56,7 +56,7 @@ $wgMemCachedServers = [];
 ## is writable, then set this to true:
 $wgEnableUploads = true;
 $wgUploadDirectory = "image_dir/images";
-$wgUploadPath = "/images";
+$wgUploadPath = "$wgResourceBasePath/images";
 
 $wgGenerateThumbnailOnParse = true;
 # InstantCommons allows wiki to use images from https://commons.wikimedia.org
