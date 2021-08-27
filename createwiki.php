@@ -12,8 +12,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 require_once "config.php";
 
 // Define variables and initialize with empty values
-$wiki_dir = $url_raw = $subfolder = $db_name = $wiki_name = $wiki_ns = "";
-$wiki_dir_err = $url_raw_err = $subfolder_err = $db_name_err = $wiki_name_err = $wiki_ns_err = "";
+$wiki_dir = $url_raw = $subfolder = $db_name = $wiki_name = $wiki_ns = $db_vanilla = $mysql_password = "";
+$wiki_dir_err = $url_raw_err = $subfolder_err = $db_name_err = $wiki_name_err = $wiki_ns_err = $db_vanilla_err = $mysql_password_err = "";
 
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -64,8 +64,29 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 		$wiki_ns = trim($_POST["wiki_ns"]);
 	}
 	
+	// Validate DB_vanilla
+	if(empty(trim($_POST["db_vanilla"]))){
+		$db_vanilla_err = "Please select and option.";
+	} else{
+		$db_vanilla = trim($_POST["db_vanilla"]);
+	}
+	
+	//Validate root password only if required
+	if($db_vanilla === "true"){
+		define('ROOT_USER', 'root');
+		define('ROOT_PASSWORD', trim($_POST["mysqlpassword"]));
+		// Attempt DB connection using root credentials
+		$linktest = mysqli_connect(DB_SERVER, ROOT_USER, ROOT_PASSWORD, DB_NAME);
+		if(empty(trim($_POST["mysql_password"]))) {
+			$mysql_password_err = "Mysql root password is required if using vanilla database";
+		} elseif($linktest === false){
+			$mysql_password_err = "Mysql root password is incorrect";
+		}else{
+			$mysql_password = trim($_POST["mysql_password"]);
+		}
+	}
 	// Check input errors before performing tasks
-	if(empty($wiki_dir_err) && empty($url_raw_err) && empty($subfolder_err) && empty($db_name_err) && empty($wiki_name_err) && empty($wiki_ns_err)){
+	if(empty($wiki_dir_err) && empty($url_raw_err) && empty($subfolder_err) && empty($db_name_err) && empty($wiki_name_err) && empty($wiki_ns_err) && empty($db_vanilla_err) && empty($mysql_password_err)){
 		// Create required variables
 		$wiki_local = "{$wiki_dir}/LocalSettings_{$db_name}.php";
 		$semantic = str_replace("http://", "", $url_raw); // Remove "http://" if applicable
@@ -126,6 +147,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 		
 		// Upload database for the new wiki
 		
+		echo shell_exec("mysql --user='root' --password='{$mysql_password}' --execute='CREATE DATABASE {$db_name};'");
+		$grantall = "GRANT ALL ON {$db_name}.* TO 'mediawiki'@'localhost';";
+		echo shell_exec("mysql --user='root' --password='{$mysql_password}' --execute='{$grantall}'");
+		echo shell_exec("mysql --user='root' --password='{$mysql_password}' --execute='FLUSH PRIVILEGES;'");
+		echo shell_exec("mysql --user='root' --password='{$rootpasswd}' {$db_name} < config/vanilladb.sql");
 		// Perform post install scripts
 		header("locationL welcome.php"); // Redirect back to welcome page once wiki creation is complete.
 	}
@@ -162,6 +188,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 					<label>Database Name</label>
 					<input type="text" name="db_name" class="form-control <?php echo (!empty($db_name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $db_name; ?>">
 					<span class="invalid-feedback"><?php echo $db_name_err; ?></span>
+				</div>
+				<div class="form-group">
+					<input type="radio" name="db_vanilla" value="true" id="vanilla_yes" />
+					<label for="vanilla_yes">Vanilla DB</label>
+					<input type="radio" name="db_vanilla" value="false" id="vanilla_no" />
+					<label for="vanilla_no">Upload DB</label>
+				</div>
+				<div class="form-group">
+					<label>Mysql Root Password (Only require if vanilla db is selected)</label>
+					<input type="password" name="mysql_password" class="form-control" <?php echo (!empty($mysql_password_err)) ? 'is-invalid' : '';?>"<?php echo $mysql_password; ?>">
+					<span class="invalid-feedback"><?php echo $mysql_password_err; ?></span>
 				</div>
 				<div class="form-group">
 					<label>Wiki name</label>
