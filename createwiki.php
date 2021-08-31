@@ -177,7 +177,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 		$sql = "INSERT INTO wikis (wikiname, wikilocal, wikifolder, dbname, admin, adminemail) VALUES (?, ?, ?, ?, ?, ?)";
 		if($stmt = mysqli_prepare($link, $sql)){
 			// Bind variables to the prepared statement as parameters
-			mysqli_stmt_bind_param($stmt, "ssssss", $wiki_name, $wiki_local, $wiki_dir, $db_name, $adminuser, $adminemail);
+			mysqli_stmt_bind_param($stmt, "ssssss", $wiki_name, $wiki_local, $wiki_dir, $db_name, $admin_user, $admin_email);
 			
 			// Attempt to execute the prepared statement
 			if(mysqli_stmt_execute($stmt)){
