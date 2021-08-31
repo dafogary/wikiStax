@@ -11,10 +11,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 // Include config file
 require_once "config.php";
 
-$sql = "SELECT id, wikiname, admin, adminemail FROM wikis WHERE id = ?";
+// Pull the information from the database
+$sql = "SELECT * FROM wikis";
 $stmt = mysqli_prepare($link, $sql);
 
-mysqli_stmt_bind_param($stmt, "i", $pid);
 mysqli_stmt_execute($stmt);
 
 $result = mysqli_stmt_get_result($stmt);
@@ -38,13 +38,16 @@ $result = mysqli_stmt_get_result($stmt);
 			</tr>
 			<?php while($row = mysqli_fetch_array($result)){ ?>
 				<tr>
-					<td><?php echo $row['id']?></td>
+					<td><?=$row['id']?></td>
 					<td><?=$row['wikiname']?></td>
 					<td><?=$row['admin']?></td>
 					<td><?=$row['adminemail']?></td>
 				</tr>
 			<?php } ?>
 		</table>
+		<?php
+		mysqli_stmt_close($stmt);
+		mysqli_close($link); ?>
 	</div>
 </body>
 </html>
