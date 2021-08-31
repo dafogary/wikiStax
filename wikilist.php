@@ -11,6 +11,14 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 // Include config file
 require_once "config.php";
 
+$sql = "SELECT id, wikiname, admin, adminemail FROM wikis WHERE id = ?";
+$stmt = mysqli_prepare($link, $sql);
+
+mysqli_stmt_bind_param($stmt, "i", $pid);
+mysqli_stmt_execute($stmt);
+
+$result = mysqli_stmt_get_result($stmt);
+
 ?>
 <!DOCTYPE html>
 <?php include_once("menu.php");?>
@@ -21,6 +29,22 @@ require_once "config.php";
 <body>
 	<div class="content">
 		<h2>View wikis below</h2>
+		<table border="3">
+			<tr>
+				<td>Wiki ID</td>
+				<td>Wiki Name</td>
+				<td>Wiki Admin User</td>
+				<td>Wiki Admin Email</td>
+			</tr>
+			<?php while($row = mysqli_fetch_array($result)){ ?>
+				<tr>
+					<td><?php echo $row['id']?></td>
+					<td><?=$row['wikiname']?></td>
+					<td><?=$row['admin']?></td>
+					<td><?=$row['adminemail']?></td>
+				</tr>
+			<?php } ?>
+		</table>
 	</div>
 </body>
 </html>

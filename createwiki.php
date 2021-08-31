@@ -174,7 +174,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 		
 		echo shell_exec("php {$farm}/maintenance/update.php --conf {$wiki_local}"); // Performs mediawiki update on new wiki
 		// Add new wiki to the wiki list
-		$sql = "INSERT INTO users (wikiname, wikilocal, wikifolder, dbname, admin, adminemail) VALUES (?, ?, ?, ?, ?, ?)";
+		$sql = "INSERT INTO wikis (wikiname, wikilocal, wikifolder, dbname, admin, adminemail) VALUES (?, ?, ?, ?, ?, ?)";
 		if($stmt = mysqli_prepare($link, $sql)){
 			// Bind variables to the prepared statement as parameters
 			mysqli_stmt_bind_param($stmt, "ssssss", $wiki_name, $wiki_local, $wiki_dir, $db_name, $adminuser, $adminemail);
