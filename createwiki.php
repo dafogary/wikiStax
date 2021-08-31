@@ -181,7 +181,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 			
 			// Attempt to execute the prepared statement
 			if(mysqli_stmt_execute($stmt)){
-				header("locationL welcome.php"); // Redirect back to welcome page once wiki creation is complete.
+				header("location: welcome.php"); // Redirect back to welcome page once wiki creation is complete.
 			} else{
 				echo "Oops! The wiki wasn't added to the database.";
 			}
