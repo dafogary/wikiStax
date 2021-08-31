@@ -64,6 +64,24 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 		$wiki_ns = trim($_POST["wiki_ns"]);
 	}
 	
+	// Validate Admin User
+	if(empty(trim($_POST["admin_user"]))){
+		$admin_user_err = "Please enter the admin user.";
+	} elseif(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["admin_user"]))){
+        $admin_user_err = "Admin user can only contain letters, numbers, and underscores.";
+	} else{
+		$admin_user = trim($_POST["admin_user"]);
+	}
+	
+	// Validate Admin Email
+	if(empty(trim($_POST["admin_email"]))){
+		$admin_email_err = "Please enter the admin email.";
+	} elseif(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+		$email_err = "Invalid email format";
+	} else{
+		$admin_email = trim($_POST["admin_email"]);
+	}
+	
 	// Validate DB_vanilla
 	if(empty(trim($_POST["db_vanilla"]))){
 		$db_vanilla_err = "Please select and option.";
@@ -72,14 +90,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	}
 	
 	//Validate root password only if required
-	if($db_vanilla === "true"){
+	if($db_vanilla === "true" && empty(trim($_POST["mysql_password"]))){
+		$mysql_password_err = "Mysql root password is required if using vanilla database";
+	}elseif($db_vanilla === "true" && !empty(trim($_POST["mysql_password"]))){
 		define('ROOT_USER', 'root');
 		define('ROOT_PASSWORD', trim($_POST["mysqlpassword"]));
 		// Attempt DB connection using root credentials
 		$linktest = mysqli_connect(DB_SERVER, ROOT_USER, ROOT_PASSWORD, DB_NAME);
-		if(empty(trim($_POST["mysql_password"]))) {
-			$mysql_password_err = "Mysql root password is required if using vanilla database";
-		} elseif($linktest === false){
+		if($linktest === false){
 			$mysql_password_err = "Mysql root password is incorrect";
 		}else{
 			$mysql_password = trim($_POST["mysql_password"]);
@@ -146,14 +164,31 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 		// Enter code to add wiki to the global LocalSettings.php file
 		
 		// Upload database for the new wiki
+		if($db_vanilla === "true"){
+			echo shell_exec("mysql --user='root' --password='{$mysql_password}' --execute='CREATE DATABASE {$db_name};'");
+			$grantall = "GRANT ALL ON {$db_name}.* TO 'mediawiki'@'localhost';";
+			echo shell_exec("mysql --user='root' --password='{$mysql_password}' --execute='{$grantall}'");
+			echo shell_exec("mysql --user='root' --password='{$mysql_password}' --execute='FLUSH PRIVILEGES;'");
+			echo shell_exec("mysql --user='root' --password='{$rootpasswd}' {$db_name} < config/vanilladb.sql");
+		}
 		
-		echo shell_exec("mysql --user='root' --password='{$mysql_password}' --execute='CREATE DATABASE {$db_name};'");
-		$grantall = "GRANT ALL ON {$db_name}.* TO 'mediawiki'@'localhost';";
-		echo shell_exec("mysql --user='root' --password='{$mysql_password}' --execute='{$grantall}'");
-		echo shell_exec("mysql --user='root' --password='{$mysql_password}' --execute='FLUSH PRIVILEGES;'");
-		echo shell_exec("mysql --user='root' --password='{$rootpasswd}' {$db_name} < config/vanilladb.sql");
-		// Perform post install scripts
-		header("locationL welcome.php"); // Redirect back to welcome page once wiki creation is complete.
+		echo shell_exec("php {$farm}/maintenance/update.php --conf {$wiki_local}"); // Performs mediawiki update on new wiki
+		// Add new wiki to the wiki list
+		$sql = "ENSERT INTO users (wikiname, wikilocal, wikifolder, dbname, admin, adminemail) VALUES (?, ?, ?, ?, ?, ?)";
+		if($stmt = mysqli_prepare($link, $sql)){
+			// Bind variables to the prepared statement as parameters
+			mysqli_stmt_bind_param($stmt, "ssssss", $wiki_name, $wiki_local, $wiki_dir, $db_name, $adminuser, $adminemail);
+			
+			// Attempt to execute the prepared statement
+			if(mysqli_stmt_execute($stmt)){
+				header("locationL welcome.php"); // Redirect back to welcome page once wiki creation is complete.
+			} else{
+				echo "Oops! The wiki wasn't added to the database.";
+			}
+			
+			// Close statement
+			mysqli_close($link);
+		}
 	}
 }
 ?>
@@ -194,10 +229,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 					<label for="vanilla_yes">Vanilla DB</label>
 					<input type="radio" name="db_vanilla" value="false" id="vanilla_no" />
 					<label for="vanilla_no">Upload DB</label>
+					<span class="invalid-feedback"><?php echo $db_vanilla_err; ?></span>
 				</div>
 				<div class="form-group">
 					<label>Mysql Root Password (Only require if vanilla db is selected)</label>
-					<input type="password" name="mysql_password" class="form-control" <?php echo (!empty($mysql_password_err)) ? 'is-invalid' : '';?>"<?php echo $mysql_password; ?>">
+					<input type="password" name="mysql_password" class="form-control <?php echo (!empty($mysql_password_err)) ? 'is-invalid' : '';?>" value="<?php echo $mysql_password; ?>">
 					<span class="invalid-feedback"><?php echo $mysql_password_err; ?></span>
 				</div>
 				<div class="form-group">
@@ -209,6 +245,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 					<label>Wiki Namespace</label>
 					<input type="text" name="wiki_ns" class="form-control <?php echo (!empty($wiki_ns_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $wiki_ns; ?>">
 					<span class="invalid-feedback"><?php echo $wiki_ns_err; ?></span>
+				</div>
+				<div class="form-group">
+					<label>Admin User</label>
+					<input type="text" name="admin_user" class="form-control <?php echo (!empty($admin_user_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $admin_user; ?>">
+					<span class="invalid-feedback"><?php echo $admin_user_err; ?></span>
+				</div>
+				<div class="form-group">
+					<label>Admin Email</label>
+					<input type="text" name="admin_email" class="form-control <?php echo (!empty($admin_email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $admin_email; ?>">
+					<span class="invalid-feedback"><?php echo $admin_email_err; ?></span>
 				</div>
 				<div class="form-group">
 					<input type="submit" class="btn btn-primary" value="Submit">
