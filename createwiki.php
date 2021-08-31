@@ -76,8 +76,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	// Validate Admin Email
 	if(empty(trim($_POST["admin_email"]))){
 		$admin_email_err = "Please enter the admin email.";
-	} elseif(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
-		$email_err = "Invalid email format";
+	} elseif(!filter_var($_POST["admin_email"], FILTER_VALIDATE_EMAIL)) {
+		$email_err = "Invalid admin email format";
 	} else{
 		$admin_email = trim($_POST["admin_email"]);
 	}
@@ -174,7 +174,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 		
 		echo shell_exec("php {$farm}/maintenance/update.php --conf {$wiki_local}"); // Performs mediawiki update on new wiki
 		// Add new wiki to the wiki list
-		$sql = "ENSERT INTO users (wikiname, wikilocal, wikifolder, dbname, admin, adminemail) VALUES (?, ?, ?, ?, ?, ?)";
+		$sql = "INSERT INTO users (wikiname, wikilocal, wikifolder, dbname, admin, adminemail) VALUES (?, ?, ?, ?, ?, ?)";
 		if($stmt = mysqli_prepare($link, $sql)){
 			// Bind variables to the prepared statement as parameters
 			mysqli_stmt_bind_param($stmt, "ssssss", $wiki_name, $wiki_local, $wiki_dir, $db_name, $adminuser, $adminemail);
