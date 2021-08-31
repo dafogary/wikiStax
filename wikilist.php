@@ -29,7 +29,7 @@ $result = mysqli_stmt_get_result($stmt);
 <body>
 	<div class="content">
 		<h2>View wikis below</h2>
-		<table border="3">
+		<table border="3" width="100%">
 			<tr>
 				<td>Wiki ID</td>
 				<td>Wiki Name</td>
