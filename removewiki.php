@@ -23,15 +23,19 @@ $selected_id = "";
 
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-	$selected_id = trim($_POST["selected_id"]);
-	echo "The selected id is: {$selected_id}";
-	// Pull folder location for selected wiki
-	
-	// Delete folder
-	
-	// Delete mysql database
-	
-	// Remove wiki from mwadmin db
+	if($_POST["selected_id"] === "Select one wiki to delete"){
+		$selected_id_err = "Please select a valid option";
+	} else {
+		$selected_id = trim($_POST["selected_id"]);
+		echo "The selected id is: {$selected_id}";
+		// Pull folder location for selected wiki
+		
+		// Delete folder
+		
+		// Delete mysql database
+		
+		// Remove wiki from mwadmin db
+	}
 
 }
 ?>
