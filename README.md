@@ -4,7 +4,7 @@ Please Note: This tool is currently in early development and is not recommend fo
 
 This is a admin management tool for a MediaWiki farm instanace.
 
-Version: 0.2-Alpha
+Version: 0.3-Alpha
 
 Requirements
 ------------------
