@@ -33,6 +33,7 @@ $result = mysqli_stmt_get_result($stmt);
 			<tr>
 				<td>Wiki ID</td>
 				<td>Wiki Name</td>
+				<td>Wiki folder</td>
 				<td>Wiki Admin User</td>
 				<td>Wiki Admin Email</td>
 			</tr>
@@ -40,6 +41,7 @@ $result = mysqli_stmt_get_result($stmt);
 				<tr>
 					<td><?=$row['id']?></td>
 					<td><?=$row['wikiname']?></td>
+					<td><?=$row['wikifolder']?></td>
 					<td><?=$row['admin']?></td>
 					<td><?=$row['adminemail']?></td>
 				</tr>
