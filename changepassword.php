@@ -1,4 +1,5 @@
 <?php
+// This page allows a user to change their password.
 // Initialize the session
 session_start();
 

@@ -1,4 +1,6 @@
 <?php
+// This allows a user to delete a wiki on the platform.
+// PLEASE NOTE: This page is not completed yet.
 // Initialize the session
 session_start();
 

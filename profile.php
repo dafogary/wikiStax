@@ -1,4 +1,5 @@
 <?php
+// This page allows users to change their user information.
 // Initialize the session
 session_start();
 
@@ -73,7 +74,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 				</tr>
 				<tr>
 					<td>Password:</td>
-					<td><a href="reset-password.php" class="btn btn-primary">Change password</a></td>
+					<td><a href="changepassword.php" class="btn btn-primary">Change password</a></td>
 				</tr>
 				<tr>
 					<td>Email:</td>

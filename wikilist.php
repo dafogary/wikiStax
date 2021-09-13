@@ -1,4 +1,6 @@
 <?php
+// This allows users to view all wikis within the platform.
+// Please Note option in the future to allow editing is comming soon.
 // Initialize the session
 session_start();
 

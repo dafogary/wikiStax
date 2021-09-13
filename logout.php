@@ -1,4 +1,5 @@
 <?php
+// This page allows a user to logout of the platform.
 // Initialize the session
 session_start();
  

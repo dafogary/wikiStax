@@ -1,4 +1,6 @@
 <?php
+// This page is the main welcome page that only Loggedin users can access
+// This provides options to manage the wiki environment.
 // Initialize the session
 session_start();
 

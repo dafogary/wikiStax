@@ -1,4 +1,7 @@
 <?php
+// This page allows the administator to change config,
+// for the install of the application.
+
 // Set farm location e.g. /var/www/html/farm
 $farm = "/var/www/html/farm";
 

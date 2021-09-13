@@ -1,4 +1,5 @@
 <?php
+// This allows a user to create a wiki on the platform.
 // Initialize the session
 session_start();
 
