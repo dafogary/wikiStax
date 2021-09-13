@@ -29,10 +29,51 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 		$selected_id_err = "Please select a valid option";
 	} else {
 		$selected_id = trim($_POST["selected_id"]);
-		echo "The selected id is: {$selected_id}";
 		// Pull folder location for selected wiki
-		
-		// Delete folder
+		while($row = mysqli_fetch_array($result)){
+			if($selected_id == $row['id']){
+				$wiki_dir = $row['wikifolder'];
+				$wiki_local = $row['wikilocal'];
+			}
+		}
+		echo $wiki_dir;
+		echo $wiki_local;
+		// Delete files and folder
+		echo shell_exec("rm {$wiki_dir}/api.php");
+		echo shell_exec("rm {$wiki_dir}/autoload.php");
+		echo shell_exec("rm {$wiki_dir}/CODE_OF_CONDUCT.md");
+		echo shell_exec("rm {$wiki_dir}/composer.json");
+		echo shell_exec("rm {$wiki_dir}/composer.lock");
+		echo shell_exec("rm {$wiki_dir}/COPYING");
+		echo shell_exec("rm {$wiki_dir}/CRDITS");
+		echo shell_exec("rm {$wiki_dir}/docs");
+		echo shell_exec("rm {$wiki_dir}/extensions");
+		echo shell_exec("rm {$wiki_dir}/FAQ");
+		echo shell_exec("rm {$wiki_dir}/HISTORY");
+		echo shell_exec("rm {$wiki_dir}/img_auth.php");
+		echo shell_exec("rm {$wiki_dir}/includes");
+		echo shell_exec("rm {$wiki_dir}/index.php");
+		echo shell_exec("rm {$wiki_dir}/INSTALL");
+		echo shell_exec("rm {$wiki_dir}/jsduck.json");
+		echo shell_exec("rm {$wiki_dir}/languages");
+		echo shell_exec("rm {$wiki_dir}/load.php");
+		echo shell_exec("rm {$wiki_dir}/LocalSettings.php");
+		echo shell_exec("rm {$wiki_dir}/maintenance");
+		echo shell_exec("rm {$wiki_dir}/mw-config");
+		echo shell_exec("rm {$wiki_dir}/opensearch_desc.php");
+		echo shell_exec("rm {$wiki_dir}/README.md");
+		echo shell_exec("rm {$wiki_dir}/RELEASE-NOTES-1.35");
+		echo shell_exec("rm {$wiki_dir}/resources");
+		echo shell_exec("rm {$wiki_dir}/rest.php");
+		echo shell_exec("rm {$wiki_dir}/SECURITY");
+		echo shell_exec("rm {$wiki_dir}/skins");
+		echo shell_exec("rm {$wiki_dir}/tests");
+		echo shell_exec("rm {$wiki_dir}/thumb_handler.php");
+		echo shell_exec("rm {$wiki_dir}/thumb.php");
+		echo shell_exec("rm {$wiki_dir}/UPGRADE");
+		echo shell_exec("rm {$wiki_dir}/vendor");
+		echo shell_exec("rm {$wiki_dir}/cache/ -r");
+		echo shell_exec("rm {$wiki_dir}/images/ -r");
 		
 		// Delete mysql database
 		
