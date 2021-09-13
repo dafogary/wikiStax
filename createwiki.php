@@ -13,8 +13,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 require_once "config.php";
 
 // Define variables and initialize with empty values
-$wiki_dir = $url_raw = $subfolder = $db_name = $wiki_name = $wiki_ns = $db_vanilla = $mysql_password = "";
-$wiki_dir_err = $url_raw_err = $subfolder_err = $db_name_err = $wiki_name_err = $wiki_ns_err = $db_vanilla_err = $mysql_password_err = "";
+$wiki_dir = $url_raw = $subfolder = $db_name = $wiki_name = $wiki_ns = $db_vanilla = $mysql_password = $admin_user = $admin_email ="";
+$wiki_dir_err = $url_raw_err = $subfolder_err = $db_name_err = $wiki_name_err = $wiki_ns_err = $db_vanilla_err = $mysql_password_err = $admin_user_err = $admin_user_email = "";
 
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
