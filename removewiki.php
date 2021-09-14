@@ -34,7 +34,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 			if($selected_id == $row['id']){
 				$wiki_dir = $row['wikifolder'];
 				$wiki_local = $row['wikilocal'];
-				$db_name = $row['dbname2'];
+				$db_name = $row['dbname'];
 			}
 		}
 		echo $wiki_dir;
@@ -79,9 +79,24 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 		echo shell_exec("rmdir {$wiki_dir}");
 		
 		// Delete mysql database
-		echo shell_exec("mysql --user='root' --password='{$mysql_password}' --execute='REMOVE DATABASE {$db_name}'");
-		
+		echo shell_exec("mysql --user='root' --password='{$mysql_password}' --execute='REMOVE DATABASE {$db_name};'");
+
 		// Remove wiki from mwadmin db
+		$sql = "DELETE FROM wikis WHERE id = ?";
+		if($stmt = mysqli_prepare($link, $sql)){
+			// Bind variables to the prepared statement as parameters
+			mysqli_stmt_bind_param($stmt, "s", $selected_id);
+			
+			// Attempt to execute the prepard statement
+			if(mysqli_stmt_execute($stmt)){
+				header("location: welcome.php"); // Redirect back to welcome page
+			} else{
+				echo "Oops! The wiki wasn't removed from the database.";
+			}
+			
+			// Close statement
+			mysqli_close($link);
+		}
 	}
 
 }
