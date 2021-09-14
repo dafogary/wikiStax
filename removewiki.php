@@ -34,6 +34,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 			if($selected_id == $row['id']){
 				$wiki_dir = $row['wikifolder'];
 				$wiki_local = $row['wikilocal'];
+				$db_name = $row['dbname2'];
 			}
 		}
 		echo $wiki_dir;
@@ -74,8 +75,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 		echo shell_exec("rm {$wiki_dir}/vendor");
 		echo shell_exec("rm {$wiki_dir}/cache/ -r");
 		echo shell_exec("rm {$wiki_dir}/images/ -r");
+		echo shell_exec("rm {$wiki_local}");
+		echo shell_exec("rmdir {$wiki_dir}");
 		
 		// Delete mysql database
+		echo shell_exec("mysql --user='root' --password='{$mysql_password}' --execute='REMOVE DATABASE {$db_name}'");
 		
 		// Remove wiki from mwadmin db
 	}
