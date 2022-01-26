@@ -97,6 +97,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 			// Close statement
 			mysqli_close($link);
 		}
+		// Remove wiki from the Global LocalSettings.php file
+		
 	}
 
 }
@@ -111,7 +113,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <body>
 	<div class="content">
 		<h2>Delete a wiki below</h2>
-		<p style="color: red">Please Note this is not reversable</p>
+		<p style="color: red">Please Note this is not reversable! All images and data will be distroyed!</p>
 		<p>Please select the wiki you wish to delete</p>
 		<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 			<select name="selected_id" id="selected_id" class="form-control">
