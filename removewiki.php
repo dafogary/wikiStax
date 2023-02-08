@@ -113,7 +113,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <body>
 	<div class="content">
 		<h2>Delete a wiki below</h2>
-		<p style="color: red">Please Note this is not reversable! All images and data will be distroyed!</p>
+		<p class="warning">Please Note this is not reversable! All images and data will be distroyed!</p>
+		<p><span class="warning">This page is to be only used by Wiki SysAdmins.</span></p>
 		<p>Please select the wiki you wish to delete</p>
 		<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 			<select name="selected_id" id="selected_id" class="form-control">
@@ -134,3 +135,4 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	</div>
 </body>
 </html>
+<?php include_once("footer.php");?>

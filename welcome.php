@@ -24,9 +24,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 		<p>
 			<a href="createwiki.php" class="btn btn-dark">Create wiki</a>
 			<a href="wikilist.php" class="btn btn-primary ml-3">Wiki list</a>
-			<a href="#" class="btn btn-warning ml-3">Spare</a>
+			<a href="createuseragreement.php" class="btn btn-warning ml-3">Create user agreement</a>
 			<a href="removewiki.php" class="btn btn-danger ml-3">Remove Wiki</a>
 		</p>
 	</div>
 </body>
 </html>
+<?php include_once("footer.php");?>
