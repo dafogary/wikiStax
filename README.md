@@ -29,6 +29,4 @@ We are also looking at an automated section that will allow you to automate the 
 
 If you want to assist in the project please take a fork, or if you would like to work with us, [please contact us via our website](https://dafocreative.com).
 
-![DAFO Creative Logo](/src/DAFO_logo.png "DAFO Creative Logo" style="width:300px;")
-
-&copy; 2021 - <script>document.write(new Date().getFullYear());</script> [DAFO Creative LLC](https:/dafocreative.com).
+&copy; 2021 - 2023 [DAFO Creative LLC](https:/dafocreative.com).
