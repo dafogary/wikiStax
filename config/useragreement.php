@@ -16,8 +16,8 @@ $result = mysqli_query($con,"SELECT * FROM useragreement");
 <link rel="stylesheet" href="../../src/styles.css">
 </head>
 <body>
-<h1>The Wiki as a Service SyOPs agreement</h1>
-<p>This table shows the User aggreement signed dates for all of the users on the WaaS wiki</p>
+<h1>The Wiki as a Service user agreement</h1>
+<p>This table shows the User agreement signed dates for all of the users on the WaaS wiki</p>
 <p>This snapshot was taken on:</p>
 <?php
 date_default_timezone_set("UTC");
