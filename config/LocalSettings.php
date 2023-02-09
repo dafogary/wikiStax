@@ -31,8 +31,8 @@ $wgLogos = [ '1x' => "$wgResourceBasePath/resources/assets/wiki.png" ];
 $wgEnableEmail = true;
 $wgEnableUserEmail = true; # UPO
 
-$wgEmergencyContact = "noreply@wikis.mod.uk";
-$wgPasswordSender = "noreply@wikis.mod.uk";
+$wgEmergencyContact = "noreply@wikis.com";
+$wgPasswordSender = "noreply@wikis.com";
 
 $wgEnotifUserTalk = false; # UPO
 $wgEnotifWatchlist = false; # UPO
