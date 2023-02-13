@@ -10,7 +10,7 @@ $mwadmin = "/var/www/html/DAFO_MWAdmin";
 server with default setting (user 'root' with no password) */
 define('DB_SERVER', 'localhost');
 define('DB_USERNAME', 'mediawiki');
-define('DB_PASSWORD', 'SecurePassword1234');
+define('DB_PASSWORD', 'VeryStrongassword');
 define('DB_NAME', 'mwadmin');
 
 /* Attempt to connect to MySQL database */

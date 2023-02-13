@@ -14,7 +14,7 @@ require_once "config.php";
 
 // Define variables and initialize with empty values
 $wiki_dir = $url_raw = $subfolder = $db_name = $wiki_name = $wiki_ns = $db_vanilla = $mysql_password = $admin_user = $admin_email ="";
-$wiki_dir_err = $url_raw_err = $subfolder_err = $db_name_err = $wiki_name_err = $wiki_ns_err = $db_vanilla_err = $mysql_password_err = $admin_user_err = $admin_user_email = "";
+$wiki_dir_err = $url_raw_err = $subfolder_err = $db_name_err = $wiki_name_err = $wiki_ns_err = $db_vanilla_err = $mysql_password_err = $admin_user_err = $admin_email_err = "";
 
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -30,7 +30,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	// Validate URL domain
 	if(empty(trim($_POST["url_raw"]))){
 		$url_raw_err = "Please enter the URL domain.";
-	} elseif(!filter_var(trim($_POST["url_raw"]), FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED)) {
+	} elseif(!filter_var(trim($_POST["url_raw"]), FILTER_VALIDATE_URL)) {
 		$url_raw_err = "Please enter a valid URL.";
 	} elseif(!(strpos(trim($_POST["url_raw"]), "http://") === 0 || strpos(trim($_POST["url_raw"]), "https://") === 0 ) ){
 		$url_raw_err = "Please enter a url with either http:// or https://";
@@ -202,6 +202,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <body>
 	<div class="content">
 		<h2>Create a wiki below</h2>
+		<p><span class="warning">This page is to be only used by Wiki SysAdmins.</span></p>		
 		<p>Please fill this form to create a new wiki.</p>
 		<div class="wrapper">
 			<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
@@ -211,7 +212,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 					<span class="invalid-feedback"><?php echo $wiki_dir_err; ?></span>
 				</div>
 				<div class="form-group">
-					<label>URL Domain e.g. "https://wiki.test.co.uk"</label>
+					<label>URL Domain e.g. "https://wiki.test.com"</label>
 					<input type="text" name="url_raw" class="form-control <?php echo (!empty($url_raw_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $url_raw; ?>">
 					<span class="invalid-feedback"><?php echo $url_raw_err; ?></span>
 				</div>
@@ -255,7 +256,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 				<div class="form-group">
 					<label>Admin Email</label>
 					<input type="text" name="admin_email" class="form-control <?php echo (!empty($admin_email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $admin_email; ?>">
-					<span class="invalid-feedback"><?php echo $admin_email_err; ?></span>
 				</div>
 				<div class="form-group">
 					<input type="submit" class="btn btn-primary" value="Submit">
@@ -266,3 +266,4 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	</div>
 </body>
 </html>
+<?php include_once("footer.php");?>

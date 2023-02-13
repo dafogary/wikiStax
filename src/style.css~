@@ -21,12 +21,14 @@
 	margin: 0;
 	color: #eaebed;
 	font-weight: normal;
+	font-family: 'Nova Square', cursive;
 }
 .navtop div a {
 	padding: 0 20px;
 	text-decoration: none;
 	color: #c1c4c8;
 	font-weight: bold;
+	font-family: 'Nova Square', cursive;
 }
 .navtop div a i {
 	padding: 2px 8px 0 0;
@@ -36,6 +38,9 @@
 }
 body {
 	font: 14px sans-serif; text-align: center;
+	min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 .content {
 	width: 50%;
@@ -47,6 +52,7 @@ body {
 	font-size: 22px;
 	border-bottom: 1px solid #e0e0e3;
 	color: #4a536e;
+	font-family: 'Nova Square', cursive;
 }
 .content > p, .content > div {
 	box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
@@ -73,3 +79,18 @@ body {
 table {
 	padding: 30px;
 }
+
+.warning {
+	font-weight: bold;
+	font-size: 24px;
+	color: #ff0000;
+}
+
+.dafo-notice {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 10px;
+  margin-top: auto;
+}
+

@@ -43,6 +43,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 				<td>Wiki Admin User</td>
 				<td>Wiki Admin Email</td>
 				<td>Edit Wiki info</td>
+				<td>Wiki Useragreement</td>
 			</tr>
 			<?php while($row = mysqli_fetch_array($result)){ ?>
 				<tr>
@@ -54,6 +55,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 					<td><form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 						<input type="hidden" name="id" value="<?php echo $row['id'];?>">
 						<input type="submit" class="btn btn-primary" value="Edit Wiki"></form></td>
+					<td><a href="useragreement/<?=$row['dbname']?>/useragreement.php">Useragreement for <?=$row['wikiname']?></a></td>				
 				</tr>
 			<?php } ?>
 		</table>
@@ -63,3 +65,4 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	</div>
 </body>
 </html>
+<?php include_once("footer.php");?>

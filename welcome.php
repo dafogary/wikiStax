@@ -21,12 +21,17 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 <body>
 	<div class="content">
 		<h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to the MediaWiki Management Interface.</h1>
-		<p>
-			<a href="createwiki.php" class="btn btn-dark">Create wiki</a>
+		<p><h2>Links for all users</h2>
+		The following links are for all users.<br><br>
 			<a href="wikilist.php" class="btn btn-primary ml-3">Wiki list</a>
-			<a href="#" class="btn btn-warning ml-3">Spare</a>
+		<br><br>		
+		<h2>Links for SysAdmin users only</h2>
+		The following links are only for SysAdmins only.<br><br>
+			<a href="createwiki.php" class="btn btn-dark">Create wiki</a>
+			<a href="createuseragreement.php" class="btn btn-warning ml-3">Create user agreement</a>
 			<a href="removewiki.php" class="btn btn-danger ml-3">Remove Wiki</a>
 		</p>
 	</div>
 </body>
 </html>
+<?php include_once("footer.php");?>
