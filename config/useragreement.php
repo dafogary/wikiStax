@@ -1,5 +1,18 @@
 <?php
-$con=mysqli_connect("localhost","mediawiki","VeryStrongPassword","wikidbname");
+// This allows a user to create a wiki on the platform.
+// Initialize the session
+session_start();
+
+// Check if the user is logged in, if not then redirect to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: ../../login.php");
+    exit;
+}
+
+// Include config file
+require_once "../../config.php";
+
+$con=mysqli_connect("localhost","mediawiki","zX3m5eg13N&d","wikidbname");
 // Check connection
 if (mysqli_connect_errno())
 {
@@ -9,20 +22,20 @@ $user = mysqli_query($con, "SELECT * FROM user");
 $result = mysqli_query($con,"SELECT * FROM useragreement");
 ?>
 <!DOCTYPE html>
-<?php include_once("menu.php");?>
+<?php include_once("../menu.php");?>
 <html>
 <head>
 <title>WaaS Wiki User Agreement</title>
-<link rel="stylesheet" href="../../src/styles.css">
+<link rel="stylesheet" href="../src/styles.css">
 </head>
-<body>
-<h1>The Wiki as a Service user agreement</h1>
-<p>This table shows the User agreement signed dates for all of the users on the WaaS wiki</p>
+<body><div class="content">
+<h1>The Wiki as a Service SyOPs agreement</h1>
+<p>This table shows the User agreement signed dates for all of the users on the wikiname wiki</p>
 <p>This snapshot was taken on:</p>
 <?php
 date_default_timezone_set("UTC");
 echo "Today's date " . date("d/m/Y") . "<br>";
-echo "Time: " . date("h:i:sa");
+echo "Time: " . date("H:i:s") . " UTC/Z";
 ?>
 <form>
 <input type="button" value="Print or PDF this page" onClick="window.print()">
@@ -72,7 +85,7 @@ mysqli_close($con);
 ?>
 </body>
 <footer>
-<a href="/admin/db/index.php">Back to Main Page</a>
+<a href="../../index.php">Back to Main Page</a>
 </footer>
 </html>
-<?php include_once("footer.php");?>
+<?php include_once("../footer.php");?>

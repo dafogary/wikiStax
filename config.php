@@ -4,7 +4,7 @@
 
 // Set farm location e.g. /var/www/html/farm
 $farm = "/var/www/html/farm";
-$mwadmin = "/var/www/html/mwadmin-main";
+$mwadmin = "/var/www/html/MWAdmin";
 
 /* Database credentials. Assuming you are running MySQL
 server with default setting (user 'root' with no password) */

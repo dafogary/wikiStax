@@ -170,7 +170,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 			$grantall = "GRANT ALL ON {$db_name}.* TO 'mediawiki'@'localhost';";
 			echo shell_exec("mysql --user='root' --password='{$mysql_password}' --execute='{$grantall}'");
 			echo shell_exec("mysql --user='root' --password='{$mysql_password}' --execute='FLUSH PRIVILEGES;'");
-			echo shell_exec("mysql --user='root' --password='{$rootpasswd}' {$db_name} < config/vanilladb.sql");
+			echo shell_exec("mysql --user='root' --password='{$rootpasswd}' {$db_name} < config/VanillaDB.sql");
 		}
 		
 		echo shell_exec("php {$farm}/maintenance/update.php --conf {$wiki_local}"); // Performs mediawiki update on new wiki
@@ -212,12 +212,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 					<span class="invalid-feedback"><?php echo $wiki_dir_err; ?></span>
 				</div>
 				<div class="form-group">
-					<label>URL Domain e.g. "https://wiki.test.com"</label>
+					<label>URL Domain e.g. "https://wiki.test.com" - note, this shall not end with a /</label>
 					<input type="text" name="url_raw" class="form-control <?php echo (!empty($url_raw_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $url_raw; ?>">
 					<span class="invalid-feedback"><?php echo $url_raw_err; ?></span>
 				</div>
 				<div class="form-group">
-					<label>Subfolder e.g. "/wiki"</label>
+					<label>Subfolder e.g. "wiki" - note, this needs to start with a /</label>
 					<input type="text" name="subfolder" class="form-control <?php echo (!empty($subfolder_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $subfolder; ?>">
 					<span class="invalid-feedback"><?php echo $subfolder_err; ?></span>
 				</div>
