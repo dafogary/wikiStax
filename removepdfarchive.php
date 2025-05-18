@@ -14,7 +14,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 require_once "config.php";
 
 // Pull the information from the database
-$sql = "SELECT * FROM wikis";
+$sql = "SELECT * FROM pdfarchives";
 $stmt = mysqli_prepare($link, $sql);
 
 mysqli_stmt_execute($stmt);
@@ -25,23 +25,23 @@ $selected_id = "";
 
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-	if($_POST["selected_id"] === "Select one wiki to delete"){
+	if($_POST["selected_id"] === "Select one PDF archive to delete"){
 		$selected_id_err = "Please select a valid option";
 	} else {
 		$selected_id = trim($_POST["selected_id"]);
 		// Pull folder location for selected wiki
 		while($row = mysqli_fetch_array($result)){
 			if($selected_id == $row['id']){
-				$wiki_dir = $row['wikifolder'];
-				$wiki_local = $row['wikilocal'];
+				$archived_name = $row['archivedname'];
+				$archive_dir = $row['wikiarchivedir'];
+				$crontab_line = $row['crontab'];
 				$db_name = $row['dbname'];
-				$global_local = $row['globallocal'];
 			}
 		}
-		echo $wiki_dir;
-		echo $wiki_local;
+		echo $archivedname;
 		// Delete files and folder
-		echo shell_exec("rm -rf " . escapeshellarg($wiki_dir));
+		echo shell_exec("rm -rf " . escapeshellarg($archive_dir));
+		
 		
 		// Delete mysql database
 		echo shell_exec("mysql --user='root' --password='{$mysql_password}' --execute='REMOVE DATABASE {$db_name};'");
@@ -56,13 +56,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 			if(mysqli_stmt_execute($stmt)){
 				header("location: welcome.php"); // Redirect back to welcome page
 			} else{
-				echo "Oops! The wiki wasn't removed from the database.";
+				echo "Oops! The PDF archive wasn't removed from the database. Please let the SysAdmin know.";
 			}
 			
 			// Close statement
 			mysqli_close($link);
 		}
-		// Remove wiki from the Global LocalSettings.php file
+		// Remove archive from the crontab
 		
 	}
 
@@ -73,17 +73,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <?php include_once("menu.php");?>
 <html lang="en">
 <head>
-    <title>Delete Wiki - WikiStax</title>
+    <title>Delete PDF Archive - WikiStax</title>
 </head>
 <body>
 	<div class="content">
-		<h2>Delete a wiki below</h2>
-		<p class="warning">Please Note this is not reversable! All images and data will be distroyed!</p>
+		<h2>Delete a PDF Archive below</h2>
+		<p class="warning">Please Note this is not reversable! All scripts and PDFs will be destroyed!</p>
 		<p><span class="warning">This page is to be only used by Wiki SysAdmins.</span></p>
-		<p>Please select the wiki you wish to delete</p>
+		<p>Please select the PDF archive you wish to delete</p>
 		<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 			<select name="selected_id" id="selected_id" class="form-control">
-				<option selected="selected" >Select one wiki to delete</option>
+				<option selected="selected" >Select one PDF archive to delete</option>
 				<?php
 				while($row = mysqli_fetch_array($result)){
 					$id = $row['id'];

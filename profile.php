@@ -60,7 +60,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 <?php include_once("menu.php"); ?>
 <html lang="en">
 <head>
-	<title>Profile Page - MWAdmin</title>
+	<title>Profile Page - WikiStax</title>
 </head>
 <body>
 	<h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>.</h1>

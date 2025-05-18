@@ -12,7 +12,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 // Include config file
 require_once "../../config.php";
 
-$con=mysqli_connect("localhost","mediawiki","zX3m5eg13N&d","wikidbname");
+$con=mysqli_connect("localhost","dbuser","password","wikidbname");
 // Check connection
 if (mysqli_connect_errno())
 {

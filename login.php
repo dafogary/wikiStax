@@ -94,7 +94,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login - MWAdmin</title>
+    <title>Login - WikiStax</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
     <link href="https://fonts.googleapis.com/css2?family=Nova+Square&display=swap" rel="stylesheet">
@@ -103,7 +103,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <body>
 	<nav class="navtop">
         <div>
-            <h1><a href="welcome.php">MWAdmin Interface</a></h1>
+            <h1><a href="welcome.php">WikiStax Interface</a></h1>
         </div>
     </nav>
     <div class="content">

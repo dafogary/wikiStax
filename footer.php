@@ -8,9 +8,9 @@
 <body>
 <div class="dafo-notice" align="left">
 <img src="src/DAFO_logo.png" width="200px"><br>
-&copy; 2022 - <?php $year = date("Y"); echo $year; ?> <a href="https://dafocreative.com" target="_blank">DAFO Creative LLC</a>.
+&copy; 2022 - <?php $year = date("Y"); echo $year; ?> <a href="https://dafocreative.com" target="_blank">DAFO Creative Ltd</a>.
 <br>
-This script is released under the GNU General Public License V3 without warranty, DAFO Creative LLC are not liable for the usage of this tool.
+This script is released under the GNU General Public License V3 without warranty, DAFO Creative Ltd are not liable for the usage of this tool.
 </div>
 </body>
 </html>

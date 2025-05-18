@@ -117,7 +117,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <?php include_once("menu.php");?>
 <html lang="en">
 <head>
-    <title>Sign Up - MWAdmin</title>
+    <title>Sign Up - WikiStax</title>
 
 </head>
 <body>

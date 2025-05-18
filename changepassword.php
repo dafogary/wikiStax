@@ -74,7 +74,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <!DOCTYPE html>
 <?php include_once("menu.php"); ?>
 <head>
-	<title>Change Password - MWAdmin</title>
+	<title>Change Password - WikiStax</title>
 </head>
 <body>
     <div class="content">

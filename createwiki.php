@@ -113,45 +113,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 		$semantic = $semantic . $subfolder; // Add the subfolder to the semantic url
 		
 		// Performing tasks to create wiki
+		
 		echo shell_exec("mkdir {$wiki_dir}/"); // Making the new directory
-		echo shell_exec("ln -s {$farm}/api.php {$wiki_dir}/api.php");
-		echo shell_exec("ln -s {$farm}/autoload.php {$wiki_dir}/autoload.php");
-		echo shell_exec("ln -s {$farm}/CODE_OF_CONDUCT.md {$wiki_dir}/CODE_OF_CONDUCT.md");
-		echo shell_exec("ln -s {$farm}/composer.json {$wiki_dir}/composer.json");
-		echo shell_exec("ln -s {$farm}/composer.lock {$wiki_dir}/composer.lock");
-		echo shell_exec("ln -s {$farm}/COPYING {$wiki_dir}/COPYING");
-		echo shell_exec("ln -s {$farm}/CREDITS {$wiki_dir}/CREDITS");
-		echo shell_exec("ln -s {$farm}/docs/ {$wiki_dir}/docs");
-		echo shell_exec("ln -s {$farm}/extensions/ {$wiki_dir}/extensions");
-		echo shell_exec("ln -s {$farm}/FAQ {$wiki_dir}/FAQ");
-		echo shell_exec("ln -s {$farm}/HISTORY {$wiki_dir}/HISTORY");
-		echo shell_exec("ln -s {$farm}/img_auth.php {$wiki_dir}/img_auth.php");
-		echo shell_exec("ln -s {$farm}/includes/ {$wiki_dir}/includes");
-		echo shell_exec("ln -s {$farm}/index.php {$wiki_dir}/index.php");
-		echo shell_exec("ln -s {$farm}/INSTALL {$wiki_dir}/INSTALL");
-		echo shell_exec("ln -s {$farm}/jsduck.json {$wiki_dir}/jsduck.json");
-		echo shell_exec("ln -s {$farm}/languages/ {$wiki_dir}/languages");
-		echo shell_exec("ln -s {$farm}/load.php {$wiki_dir}/load.php");
-		echo shell_exec("ln -s {$farm}/LocalSettings.php {$wiki_dir}/LocalSettings.php");
-		echo shell_exec("ln -s {$farm}/maintenance/ {$wiki_dir}/maintenance");
-		echo shell_exec("ln -s {$farm}/mw-config/ {$wiki_dir}/mw-config");
-		echo shell_exec("ln -s {$farm}/opensearch_desc.php {$wiki_dir}/opensearch_desc.php");
-		echo shell_exec("ln -s {$farm}/README.md {$wiki_dir}/README.md");
-		echo shell_exec("ln -s {$farm}/RELEASE-NOTES-1.35 {$wiki_dir}/RELEASE-NOTES-1.35");
-		echo shell_exec("ln -s {$farm}/resources/ {$wiki_dir}/resources");
-		echo shell_exec("ln -s {$farm}/rest.php {$wiki_dir}/rest.php");
-		echo shell_exec("ln -s {$farm}/SECURITY {$wiki_dir}/SECURITY");
-		echo shell_exec("ln -s {$farm}/skins/ {$wiki_dir}/skins");
-		echo shell_exec("ln -s {$farm}/tests/ {$wiki_dir}/tests");
-		echo shell_exec("ln -s {$farm}/thumb_handler.php {$wiki_dir}/thumb_handler.php");
-		echo shell_exec("ln -s {$farm}/thumb.php {$wiki_dir}/thumb.php");
-		echo shell_exec("ln -s {$farm}/UPGRADE {$wiki_dir}/UPGRADE");
-		echo shell_exec("ln -s {$farm}/vendor/ {$wiki_dir}/vendor");
+		
+		// Copying files to the new directory
+		echo shell_exec("ln -s {$farm}/* {$wiki_dir}");
+			
+		// Create cache and images directories
 		echo shell_exec("mkdir {$wiki_dir}/cache");
 		echo shell_exec("mkdir {$wiki_dir}/images");
 		
-		//Performing tasks to create the localsettings.php file for the wiki
-		echo shell_exec("cp config/LocalSettings.php {$wiki_local}");
+		//Performing tasks to create the localsettings_local.php file for the wiki
+		echo shell_exec("cp config/LocalSettings_local.php {$wiki_local}");
 		$local = file_get_contents($wiki_local);
 		$local = str_replace("wikidbname", $db_name, $local);
 		$local = str_replace("subfolder", $subfolder, $local);
@@ -163,6 +136,26 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 		file_put_contents($wiki_local, $local);
 		
 		// Enter code to add wiki to the global LocalSettings.php file
+		// Path to the global LocalSettings.php file
+		$global_localsettings = "{$farm}/LocalSettings.php";
+
+		// Code to append to the LocalSettings.php file
+		$new_wiki_code = "\n//wiki field start {$wiki_name}\n" .
+						"} elseif ( strpos( \$callingurl, '/{$subfolder}' ) === 0 ) {\n" .
+						"    require_once 'LocalSettings_{$db_name}.php';\n" .
+						"//wiki field end\n";
+
+		// Append the new code after the last "//wiki field end"
+		$localsettings_content = file_get_contents($global_localsettings);
+		$last_wiki_field_end_pos = strrpos($localsettings_content, "//wiki field end");
+		if ($last_wiki_field_end_pos !== false) {
+			$insert_position = $last_wiki_field_end_pos + strlen("//wiki field end\n");
+			$localsettings_content = substr_replace($localsettings_content, $new_wiki_code, $insert_position, 0);
+			file_put_contents($global_localsettings, $localsettings_content);
+		} else {
+			echo "Error: Could not find '//wiki field end' in LocalSettings.php.";
+		}
+
 		
 		// Upload database for the new wiki
 		if($db_vanilla === "true"){
@@ -173,12 +166,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 			echo shell_exec("mysql --user='root' --password='{$rootpasswd}' {$db_name} < config/VanillaDB.sql");
 		}
 		
-		echo shell_exec("php {$farm}/maintenance/update.php --conf {$wiki_local}"); // Performs mediawiki update on new wiki
+		echo shell_exec("php {$farm}/maintenance/run.php update --conf {$wiki_local}"); // Performs mediawiki update on new wiki
 		// Add new wiki to the wiki list
-		$sql = "INSERT INTO wikis (wikiname, wikilocal, wikifolder, dbname, admin, adminemail) VALUES (?, ?, ?, ?, ?, ?)";
+		$sql = "INSERT INTO wikis (wikiname, wikilocal, wikifolder, dbname, admin, adminemail, globallocal) VALUES (?, ?, ?, ?, ?, ?, ?)";
 		if($stmt = mysqli_prepare($link, $sql)){
 			// Bind variables to the prepared statement as parameters
-			mysqli_stmt_bind_param($stmt, "ssssss", $wiki_name, $wiki_local, $wiki_dir, $db_name, $admin_user, $admin_email);
+			mysqli_stmt_bind_param($stmt, "sssssss", $wiki_name, $wiki_local, $wiki_dir, $db_name, $admin_user, $admin_email, $new_wiki_code);
 			
 			// Attempt to execute the prepared statement
 			if(mysqli_stmt_execute($stmt)){
@@ -197,7 +190,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <?php include_once("menu.php");?>
 <html lang="en">
 <head>
-    <title>Create Wiki - MWAdmin</title>
+    <title>Create Wiki - WikiStax</title>
 </head>
 <body>
 	<div class="content">

@@ -4,7 +4,8 @@
 
 // Set farm location e.g. /var/www/html/farm
 $farm = "/var/www/html/farm";
-$mwadmin = "/var/www/html/MWAdmin";
+$mwadmin = "/var/www/html/wikistax";
+$wikistaxurl = "http://localhost/wikistax";
 
 /* Database credentials. Assuming you are running MySQL
 server with default setting (user 'root' with no password) */

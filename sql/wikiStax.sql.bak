@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Feb 09, 2023 at 12:40 AM
--- Server version: 10.6.11-MariaDB-0ubuntu0.22.04.1
--- PHP Version: 8.1.2-1ubuntu2.10
+-- Generation Time: Apr 04, 2025 at 06:46 PM
+-- Server version: 10.6.21-MariaDB-0ubuntu0.22.04.2
+-- PHP Version: 8.2.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,8 +18,22 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `mwadmin`
+-- Database: `wikiStax`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pdfarchives`
+--
+
+CREATE TABLE `pdfarchives` (
+  `id` int(11) NOT NULL,
+  `archivedname` varchar(256) NOT NULL,
+  `wikiarchivedir` text NOT NULL,
+  `crontab` text NOT NULL,
+  `wikiurl` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -56,6 +70,20 @@ CREATE TABLE `wikis` (
   `admin` varchar(255) NOT NULL,
   `adminemail` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `xmlexport`
+--
+
+CREATE TABLE `xmlexport` (
+  `id` int(11) NOT NULL,
+  `archivedname` varchar(256) NOT NULL,
+  `wikixmldir` text NOT NULL,
+  `crontab` text NOT NULL,
+  `wikiurl` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Indexes for dumped tables

@@ -1,0 +1,25 @@
+ /*Page generated at $time watermark*/
+
+#watermark {
+height: 100%;
+left: 0;
+font-size: 18pt;
+color: red;
+opacity: 0.1;
+margin: 0;
+position: fixed;
+top: 0;
+transform: rotate(-45deg);
+transform-origin: 0 100%;
+width: 100%;
+word-spacing: 10px;
+z-index: -10;
+-webkit-touch-callout: none; /* iOS Safari */
+-webkit-user-select: none; /* Safari */
+-khtml-user-select: none; /* Konqueror HTML */
+-moz-user-select: none; /* Old versions of Firefox */
+-ms-user-select: none; /* Internet Explorer/Edge */
+user-select: none; /* Non-prefixed version, currently
+supported by Chrome, Edge, Opera and Firefox */
+
+}

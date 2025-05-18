@@ -9,7 +9,7 @@
 <body>
     <nav class="navtop">
         <div>
-            <h1><a href="../../welcome.php">MWAdmin Interface</a></h1>
+            <h1><a href="../../welcome.php">WikiStax Interface</a></h1>
             <a href="../../register.php"><i class="fas fa-users"></i>Create User Account</a>
 			<a href="../../changepassword.php"><i class="fas fa-cog"></i>Change Password</a>
             <a href="../../profile.php"><i class="fas fa-user-circle"></i><?php echo htmlspecialchars($_SESSION["username"]); ?></a>
