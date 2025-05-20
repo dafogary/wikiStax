@@ -1,5 +1,4 @@
-![WikiStax Logo](![image](https://github.com/user-attachments/assets/7a8e14cf-8932-4252-8784-45c381503fb5)
- "WikiStax Logo" style="width:300px;")
+[![WikistaxDarkLogo](https://raw.githubusercontent.com/dafogary/wikiStax/refs/heads/main/src/WikistaxDarkLogo.png)](https://wikistax.org)
 ==================
 Please Note: This tool is currently in early development and is not recommend for use yet.
 
@@ -46,6 +45,6 @@ We are also looking at an automated section that will allow you to automate the 
 
 If you want to assist in the project please take a fork, or if you would like to work with us, [please contact us via our website](https://dafocreative.com).
 
-![DAFO Creative Logo](/src/DAFO_logo.png "DAFO Creative Logo" style="width:300px;")
+[![DAFODarkLogo](https://raw.githubusercontent.com/dafogary/wikiStax/refs/heads/main/src/DAFO_logo.png)](https://dafocreative.com)
 
-&copy; 2021 - <script>document.write(new Date().getFullYear());</script> [DAFO Creative LLC](https:/dafocreative.com).
+© 2021 - 2025 [DAFO Creative LLC](https:/dafocreative.com).
