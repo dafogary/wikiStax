@@ -1,4 +1,5 @@
-![WikiStax Logo](src/WikiStaxDarkLogo.png "WikiStax Logo" style="width:300px;")
+![WikiStax Logo](![image](https://github.com/user-attachments/assets/7a8e14cf-8932-4252-8784-45c381503fb5)
+ "WikiStax Logo" style="width:300px;")
 ==================
 Please Note: This tool is currently in early development and is not recommend for use yet.
 
