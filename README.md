@@ -20,7 +20,7 @@ To edit the susodoers file run:
 
 Add the line:
 
-  # Allow user www-data to execute sudo command crontab
+  &#8203;# Allow user www-data to execute sudo command crontab<br>
   www-data ALL=(ALL) NOPASSWD: /usr/bin/crontab
 
 
